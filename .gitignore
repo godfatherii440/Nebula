@@ -1,0 +1,3 @@
+*.o
+nebula_compute
+run_tests
