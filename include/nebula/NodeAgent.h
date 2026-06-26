@@ -32,6 +32,11 @@ public:
      * @return A string representing status (e.g., "IDLE", "BUSY").
      */
     virtual std::string getStatus() const = 0;
+
+    /**
+     * @brief Check if the node has a GPU available.
+     */
+    virtual bool hasGpu() const = 0;
 };
 
 } // namespace nebula

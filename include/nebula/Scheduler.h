@@ -5,6 +5,8 @@
 #include <vector>
 #include "nebula/Task.h"
 #include "nebula/NodeAgent.h"
+#include "nebula/Verifier.h"
+#include "nebula/PaymentManager.h"
 
 namespace nebula {
 
@@ -31,6 +33,16 @@ public:
      * @brief Perform the scheduling loop (assign queued tasks to idle nodes).
      */
     virtual void scheduleTasks() = 0;
+
+    /**
+     * @brief Attach a verifier to the scheduler.
+     */
+    virtual void setVerifier(std::shared_ptr<Verifier> verifier) = 0;
+
+    /**
+     * @brief Attach a payment manager to the scheduler.
+     */
+    virtual void setPaymentManager(std::shared_ptr<PaymentManager> paymentManager) = 0;
 };
 
 } // namespace nebula
