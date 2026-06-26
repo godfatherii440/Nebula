@@ -13,14 +13,16 @@ private:
     std::string nodeId_;
     std::shared_ptr<ExecutionEngine> engine_;
     bool isBusy_;
+    bool hasGpu_;
 
 public:
-    MockNodeAgent(const std::string& nodeId, std::shared_ptr<ExecutionEngine> engine);
+    MockNodeAgent(const std::string& nodeId, std::shared_ptr<ExecutionEngine> engine, bool hasGpu = false);
     ~MockNodeAgent() override;
 
     std::string getNodeId() const override;
     bool acceptTask(std::shared_ptr<Task> task) override;
     std::string getStatus() const override;
+    bool hasGpu() const override;
 };
 
 } // namespace nebula

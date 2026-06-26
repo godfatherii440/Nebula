@@ -36,6 +36,32 @@ public:
      * @brief Check if the task is completed.
      */
     virtual bool isCompleted() const = 0;
+
+    /**
+     * @brief Check if the task requires a GPU.
+     */
+    virtual bool requiresGpu() const = 0;
+
+    /**
+     * @brief Check if the task is verified.
+     */
+    virtual bool isVerified() const = 0;
+
+    /**
+     * @brief Check if the task failed verification.
+     */
+    virtual bool hasFailedVerification() const = 0;
+
+    /**
+     * @brief Set the verification status.
+     * @param verified true if successfully verified, false if failed verification.
+     */
+    virtual void setVerificationStatus(bool verified) = 0;
+
+    /**
+     * @brief Reset the task state (clear result and verification status).
+     */
+    virtual void reset() = 0;
 };
 
 } // namespace nebula

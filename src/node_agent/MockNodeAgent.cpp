@@ -3,8 +3,8 @@
 
 namespace nebula {
 
-MockNodeAgent::MockNodeAgent(const std::string& nodeId, std::shared_ptr<ExecutionEngine> engine)
-    : nodeId_(nodeId), engine_(engine), isBusy_(false) {
+MockNodeAgent::MockNodeAgent(const std::string& nodeId, std::shared_ptr<ExecutionEngine> engine, bool hasGpu)
+    : nodeId_(nodeId), engine_(engine), isBusy_(false), hasGpu_(hasGpu) {
     if (engine_) {
         engine_->initialize();
     }
@@ -42,6 +42,10 @@ bool MockNodeAgent::acceptTask(std::shared_ptr<Task> task) {
 
 std::string MockNodeAgent::getStatus() const {
     return isBusy_ ? "BUSY" : "IDLE";
+}
+
+bool MockNodeAgent::hasGpu() const {
+    return hasGpu_;
 }
 
 } // namespace nebula
