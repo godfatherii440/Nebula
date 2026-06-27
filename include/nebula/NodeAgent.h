@@ -5,6 +5,7 @@
 #include <memory>
 #include "nebula/Task.h"
 #include "nebula/ExecutionEngine.h"
+#include "nebula/HardwareRequirements.h"
 
 namespace nebula {
 
@@ -32,6 +33,11 @@ public:
      * @return A string representing status (e.g., "IDLE", "BUSY").
      */
     virtual std::string getStatus() const = 0;
+
+    /**
+     * @brief Get the hardware capabilities (vCPU/vGPU) this node can offer.
+     */
+    virtual std::shared_ptr<HardwareRequirements> getAvailableHardware() const = 0;
 };
 
 } // namespace nebula

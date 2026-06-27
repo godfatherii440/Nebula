@@ -21,6 +21,7 @@ public:
     std::string getNodeId() const override;
     bool acceptTask(std::shared_ptr<Task> task) override;
     std::string getStatus() const override;
+    std::shared_ptr<HardwareRequirements> getAvailableHardware() const override;
 };
 
 } // namespace nebula

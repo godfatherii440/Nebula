@@ -26,4 +26,8 @@ bool DummyTask::isCompleted() const {
     return completed_;
 }
 
+std::shared_ptr<HardwareRequirements> DummyTask::getHardwareRequirements() const {
+    return nullptr;
+}
+
 } // namespace nebula

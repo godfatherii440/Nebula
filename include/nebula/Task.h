@@ -2,6 +2,8 @@
 #define NEBULA_TASK_H
 
 #include <string>
+#include <memory>
+#include "nebula/HardwareRequirements.h"
 
 namespace nebula {
 
@@ -36,6 +38,11 @@ public:
      * @brief Check if the task is completed.
      */
     virtual bool isCompleted() const = 0;
+
+    /**
+     * @brief Get the hardware requirements (vCPU/vGPU) for this task.
+     */
+    virtual std::shared_ptr<HardwareRequirements> getHardwareRequirements() const = 0;
 };
 
 } // namespace nebula
