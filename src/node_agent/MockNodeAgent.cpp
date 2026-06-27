@@ -44,4 +44,8 @@ std::string MockNodeAgent::getStatus() const {
     return isBusy_ ? "BUSY" : "IDLE";
 }
 
+std::shared_ptr<HardwareRequirements> MockNodeAgent::getAvailableHardware() const {
+    return nullptr;
+}
+
 } // namespace nebula

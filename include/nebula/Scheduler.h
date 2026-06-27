@@ -5,6 +5,7 @@
 #include <vector>
 #include "nebula/Task.h"
 #include "nebula/NodeAgent.h"
+#include "nebula/HardwareRequirements.h"
 
 namespace nebula {
 
@@ -28,7 +29,7 @@ public:
     virtual void submitTask(std::shared_ptr<Task> task) = 0;
 
     /**
-     * @brief Perform the scheduling loop (assign queued tasks to idle nodes).
+     * @brief Perform the scheduling loop (assign queued tasks to idle nodes based on hardware requirements).
      */
     virtual void scheduleTasks() = 0;
 };

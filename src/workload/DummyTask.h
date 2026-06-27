@@ -21,6 +21,7 @@ public:
     void setResult(const std::string& result) override;
     std::string getResult() const override;
     bool isCompleted() const override;
+    std::shared_ptr<HardwareRequirements> getHardwareRequirements() const override;
 };
 
 } // namespace nebula

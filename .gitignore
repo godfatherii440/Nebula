@@ -1,3 +1,12 @@
+# Build artifacts
 *.o
+*.a
+*.so
 nebula_compute
 run_tests
+
+# Dependencies
+deps/
+
+# Generated files
+src/generated/

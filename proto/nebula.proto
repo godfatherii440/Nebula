@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package nebula.grpc;
+
+// --- Messages for Hardware and Node Registration ---
+
+message VCPUInfo {
+    int32 cores = 1;
+    int32 memory_mb = 2;
+}
+
+message VGPUInfo {
+    int32 cores = 1;
+    int32 vram_mb = 2;
+}
+
+message HardwareInfo {
+    VCPUInfo vcpu = 1;
+    VGPUInfo vgpu = 2;
+}
+
+message NodeRegistrationRequest {
+    string node_id = 1;
+    HardwareInfo hardware = 2;
+}
+
+message NodeRegistrationResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// --- Messages for Task Management ---
+
+message TaskSubmissionRequest {
+    string task_id = 1;
+    string payload = 2;
+    HardwareInfo requirements = 3;
+}
+
+message TaskSubmissionResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message TaskExecutionRequest {
+    string task_id = 1;
+    string payload = 2;
+}
+
+message TaskExecutionResponse {
+    bool success = 1;
+    string result = 2;
+}
+
+// --- Services ---
+
+// SchedulerService handles control plane operations like node registration and task submission.
+service SchedulerService {
+    rpc RegisterNode(NodeRegistrationRequest) returns (NodeRegistrationResponse);
+    rpc SubmitTask(TaskSubmissionRequest) returns (TaskSubmissionResponse);
+}
+
+// ExecutionService runs on the edge nodes and accepts tasks from the control plane.
+service ExecutionService {
+    rpc ExecuteTask(TaskExecutionRequest) returns (TaskExecutionResponse);
+}
