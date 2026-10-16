@@ -20,14 +20,16 @@ void BasicScheduler::scheduleTasks() {
         std::shared_ptr<Task> task = taskQueue_.front();
         bool assigned = false;
 
-        // Simple round-robin attempt for available nodes
+        // Round-robin attempt for available nodes matching task resource requirements
         static size_t last_node_idx = 0;
         size_t start_idx = last_node_idx;
         do {
+            if (nodes_.empty()) break;
+
             auto& node = nodes_[last_node_idx];
             last_node_idx = (last_node_idx + 1) % nodes_.size();
 
-            if (node->getStatus() == "IDLE") {
+            if (node->getStatus() == "IDLE" && task->getResourceRequirements().fitsIn(node->getCapacity())) {
                 std::cout << "[BasicScheduler] Assigning task " << task->getId() << " to node " << node->getNodeId() << std::endl;
                 if (node->acceptTask(task)) {
                     assigned = true;
@@ -38,8 +40,8 @@ void BasicScheduler::scheduleTasks() {
         } while (last_node_idx != start_idx);
 
         if (!assigned) {
-            std::cout << "[BasicScheduler] No available nodes for task " << task->getId() << ". Retrying later." << std::endl;
-            break; // Stop scheduling if no nodes are available
+            std::cout << "[BasicScheduler] No available matching nodes for task " << task->getId() << ". Retrying later." << std::endl;
+            break; // Stop scheduling if no suitable nodes are currently available
         }
     }
     std::cout << "[BasicScheduler] Scheduling loop finished." << std::endl;
