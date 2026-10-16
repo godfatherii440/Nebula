@@ -3,8 +3,11 @@
 
 namespace nebula {
 
-MockNodeAgent::MockNodeAgent(const std::string& nodeId, std::shared_ptr<ExecutionEngine> engine)
-    : nodeId_(nodeId), engine_(engine), isBusy_(false) {
+MockNodeAgent::MockNodeAgent(const std::string& nodeId,
+                             std::shared_ptr<ExecutionEngine> engine,
+                             const ResourceSpec& capacity,
+                             double reputation)
+    : nodeId_(nodeId), engine_(engine), isBusy_(false), capacity_(capacity), reputationScore_(reputation) {
     if (engine_) {
         engine_->initialize();
     }
@@ -26,6 +29,11 @@ bool MockNodeAgent::acceptTask(std::shared_ptr<Task> task) {
         return false;
     }
 
+    if (!task->getResourceRequirements().fitsIn(capacity_)) {
+        std::cout << "[MockNodeAgent " << nodeId_ << "] Insufficient capacity for task " << task->getId() << std::endl;
+        return false;
+    }
+
     std::cout << "[MockNodeAgent " << nodeId_ << "] Accepting task " << task->getId() << std::endl;
     isBusy_ = true;
 
@@ -42,6 +50,18 @@ bool MockNodeAgent::acceptTask(std::shared_ptr<Task> task) {
 
 std::string MockNodeAgent::getStatus() const {
     return isBusy_ ? "BUSY" : "IDLE";
+}
+
+ResourceSpec MockNodeAgent::getCapacity() const {
+    return capacity_;
+}
+
+double MockNodeAgent::getReputationScore() const {
+    return reputationScore_;
+}
+
+void MockNodeAgent::setReputationScore(double score) {
+    reputationScore_ = score;
 }
 
 } // namespace nebula

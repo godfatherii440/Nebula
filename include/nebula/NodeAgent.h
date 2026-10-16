@@ -5,6 +5,7 @@
 #include <memory>
 #include "nebula/Task.h"
 #include "nebula/ExecutionEngine.h"
+#include "nebula/ResourceSpec.h"
 
 namespace nebula {
 
@@ -32,6 +33,21 @@ public:
      * @return A string representing status (e.g., "IDLE", "BUSY").
      */
     virtual std::string getStatus() const = 0;
+
+    /**
+     * @brief Get the hardware resource capacity of the node.
+     */
+    virtual ResourceSpec getCapacity() const = 0;
+
+    /**
+     * @brief Get the node's current reputation score (0.0 to 1.0).
+     */
+    virtual double getReputationScore() const = 0;
+
+    /**
+     * @brief Update the node's reputation score.
+     */
+    virtual void setReputationScore(double score) = 0;
 };
 
 } // namespace nebula

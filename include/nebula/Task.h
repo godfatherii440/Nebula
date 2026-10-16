@@ -2,6 +2,7 @@
 #define NEBULA_TASK_H
 
 #include <string>
+#include "nebula/ResourceSpec.h"
 
 namespace nebula {
 
@@ -36,6 +37,16 @@ public:
      * @brief Check if the task is completed.
      */
     virtual bool isCompleted() const = 0;
+
+    /**
+     * @brief Get resource requirements for this task.
+     */
+    virtual ResourceSpec getResourceRequirements() const = 0;
+
+    /**
+     * @brief Get estimated compute units for billing/metering.
+     */
+    virtual double getComputeUnits() const = 0;
 };
 
 } // namespace nebula

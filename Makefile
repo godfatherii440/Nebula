@@ -1,21 +1,19 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -Wextra -Iinclude -Isrc
+CXXFLAGS = -std=c++14 -Wall -Wextra -pthread -Iinclude -Isrc
 
-SRCS = src/main.cpp \
-       src/workload/DummyTask.cpp \
-       src/engine/MockExecutionEngine.cpp \
-       src/node_agent/MockNodeAgent.cpp \
-       src/scheduler/BasicScheduler.cpp
+COMMON_SRCS = src/workload/DummyTask.cpp \
+              src/engine/MockExecutionEngine.cpp \
+              src/node_agent/MockNodeAgent.cpp \
+              src/scheduler/BasicScheduler.cpp \
+              src/verification/ConsensusVerificationEngine.cpp \
+              src/billing/UsageBillingEngine.cpp \
+              src/network/TcpNetworkEngine.cpp
 
+SRCS = src/main.cpp $(COMMON_SRCS)
 OBJS = $(SRCS:.cpp=.o)
 TARGET = nebula_compute
 
-TEST_SRCS = tests/test_main.cpp \
-            src/workload/DummyTask.cpp \
-            src/engine/MockExecutionEngine.cpp \
-            src/node_agent/MockNodeAgent.cpp \
-            src/scheduler/BasicScheduler.cpp
-
+TEST_SRCS = tests/test_main.cpp $(COMMON_SRCS)
 TEST_OBJS = $(TEST_SRCS:.cpp=.o)
 TEST_TARGET = run_tests
 
